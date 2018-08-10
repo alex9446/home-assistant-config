@@ -1,0 +1,44 @@
+'1533171204737':
+  alias: Luci OFF
+  sequence:
+  - data:
+      brightness: 255
+      color_name: green
+      entity_id: light.luce_rgb
+    service: light.turn_on
+  - delay: '5'
+  - data:
+      entity_id: light.luce_rgb
+    service: light.turn_off
+  - delay: '{{ (states(''input_number.minuti_luci_off'') | int * 60)-85 }}'
+  - data:
+      brightness: 255
+      color_name: red
+      entity_id: light.luce_rgb
+    service: light.turn_on
+  - delay: '5'
+  - data:
+      entity_id: light.luce_rgb
+    service: light.turn_off
+  - delay: '25'
+  - data:
+      brightness: 255
+      color_name: red
+      entity_id: light.luce_rgb
+    service: light.turn_on
+  - data:
+      entity_id: light.luce_bianca
+    service: light.turn_off
+  - data:
+      entity_id: light.luce_rgb
+      transition: 60
+    service: light.turn_off
+'1533592414402':
+  alias: Inverti luci
+  sequence:
+  - alias: ''
+    data:
+      entity_id:
+      - light.luce_bianca
+      - light.luce_rgb
+    service: light.toggle

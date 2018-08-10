@@ -1,0 +1,116 @@
+homeassistant:
+  name: Home
+  latitude: !secret lat
+  longitude: !secret long
+  elevation: 15
+  unit_system: metric
+  time_zone: Europe/Rome
+  customize: !include customize.yaml
+
+frontend:
+
+config:
+
+http:
+  api_password: !secret http_password
+
+updater:
+
+conversation:
+
+recorder:
+  purge_keep_days: 3
+  include:
+    domains:
+      - input_datetime
+      - input_number
+      - light
+      - automation
+      - script
+    entities:
+      - sensor.current_version
+      - sensor.processor_use
+      - sensor.memory_use_percent
+      - sensor.disk_use_percent_
+      - sensor.processor_temp
+
+history:
+
+logbook:
+
+hassio:
+
+sun:
+
+tts:
+  - platform: google
+    language: 'it'
+
+mqtt:
+  broker: core-mosquitto
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+
+telegram_bot:
+  - platform: broadcast
+    api_key: !secret bot_key
+    allowed_chat_ids:
+      - !secret alex_chat_id
+
+light:
+  - platform: mqtt
+    name: Luce bianca
+    state_topic: stat/luce-bianca/POWER
+    command_topic: cmnd/luce-bianca/POWER
+    #availability_topic: tele/luce-bianca/LWT
+    qos: 0
+  - platform: yeelight
+    devices:
+      10.192.168.65:
+        name: Luce RGB
+        transition: 500
+
+sensor:
+  - platform: uptime
+    unit_of_measurement: hours
+  - platform: version
+  - platform: systemmonitor
+    resources:
+      - type: processor_use
+      - type: memory_use_percent
+      - type: disk_use_percent
+        arg: /
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+  - platform: command_line
+    name: Processor temp
+    command: 'cat /sys/class/thermal/thermal_zone0/temp'
+    unit_of_measurement: '°C'
+    value_template: '{{ value | multiply(0.001) | int }}'
+
+notify:
+  - name: Alex
+    platform: telegram
+    chat_id: !secret alex_chat_id
+
+input_number:
+  minuti_luci_off:
+    name: Minuti luci OFF
+    min: 2
+    max: 10
+    step: 1
+
+input_datetime:
+  sveglia:
+    name: Sveglia
+    has_date: false
+    has_time: true
+
+shell_command:
+  auto_update: 'sh /config/auto-update.sh &> /config/auto-update.log'
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml

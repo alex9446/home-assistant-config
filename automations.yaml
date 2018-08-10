@@ -1,0 +1,21 @@
+- id: '1531239761332'
+  alias: Sveglia
+  trigger:
+  - platform: template
+    value_template: '{{states(''input_datetime.sveglia'') == states(''sensor.time'')+'':00''}}'
+  condition: []
+  action:
+  - data:
+      entity_id: light.luce_bianca
+    service: light.turn_on
+  - data:
+      entity_id: automation.sveglia
+    service: automation.turn_off
+- id: '1533660733125'
+  alias: Auto update - GitHub
+  trigger:
+  - at: 06:30:00
+    platform: time
+  condition: []
+  action:
+  - service: shell_command.auto_update
