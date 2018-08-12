@@ -12,6 +12,7 @@ Settaggi:
   entities:
     - input_number.minuti_luci_off
     - input_datetime.sveglia
+    - automation.auto_update_ip
     - automation.auto_update__github
 
 HA Info:

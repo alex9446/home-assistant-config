@@ -19,3 +19,12 @@
   condition: []
   action:
   - service: shell_command.auto_update
+- id: '1533906485973'
+  alias: Auto update IP
+  trigger:
+  - platform: time
+    minutes: '/30'
+    seconds: 00
+  condition: []
+  action:
+  - service: rest_command.update_ip

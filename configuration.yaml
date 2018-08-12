@@ -108,6 +108,11 @@ input_datetime:
     has_date: false
     has_time: true
 
+rest_command:
+  update_ip:
+    url: !secret update_ip_url
+    method: GET
+
 shell_command:
   auto_update: 'sh /config/auto-update.sh &> /config/auto-update.log'
 

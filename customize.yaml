@@ -7,6 +7,9 @@ input_datetime.sveglia:
 automation.sveglia:
   icon: mdi:bell-ring-outline
 
+automation.auto_update_ip:
+  icon: mdi:dns
+
 automation.auto_update__github:
   icon: mdi:github-circle
 
