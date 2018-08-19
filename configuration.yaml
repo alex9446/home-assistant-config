@@ -33,6 +33,7 @@ recorder:
       - sensor.memory_use_percent
       - sensor.disk_use_percent_
       - sensor.processor_temp
+      - sensor.ip_pubblico
 
 history:
 
@@ -89,6 +90,10 @@ sensor:
     command: 'cat /sys/class/thermal/thermal_zone0/temp'
     unit_of_measurement: '°C'
     value_template: '{{ value | multiply(0.001) | int }}'
+  - platform: rest
+    name: IP Pubblico
+    resource: https://api.ipify.org
+    method: GET
 
 notify:
   - name: Alex

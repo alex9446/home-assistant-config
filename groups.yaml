@@ -18,6 +18,7 @@ Settaggi:
 HA Info:
   control: hidden
   entities:
+    - sensor.ip_pubblico
     - sensor.current_version
     - sun.sun
     - sensor.time

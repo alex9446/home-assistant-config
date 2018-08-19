@@ -23,7 +23,7 @@
   alias: Auto update IP
   trigger:
   - platform: time
-    minutes: '/30'
+    minutes: '/180'
     seconds: 00
   condition: []
   action:
