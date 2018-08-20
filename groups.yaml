@@ -23,6 +23,7 @@ HA Info:
     - sun.sun
     - sensor.time
     - sensor.date
+    - sensor.auto_update_log
 
 Raspberry:
   control: hidden

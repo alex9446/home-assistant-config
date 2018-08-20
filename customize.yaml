@@ -18,3 +18,6 @@ script.1533592414402:
 
 script.1533171204737:
   icon: mdi:lightbulb-outline
+
+sensor.auto_update_log:
+  icon: mdi:file-document-outline

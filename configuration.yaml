@@ -94,6 +94,10 @@ sensor:
     name: IP Pubblico
     resource: https://api.ipify.org
     method: GET
+  - platform: command_line
+    name: Auto update log
+    command: 'head -c 254 /config/auto-update.log'
+    scan_interval: 3600
 
 notify:
   - name: Alex
@@ -119,7 +123,7 @@ rest_command:
     method: GET
 
 shell_command:
-  auto_update: 'sh /config/auto-update.sh &> /config/auto-update.log'
+  auto_update: 'cd /config && cp auto-update.log auto-update_old.log && sh auto-update.sh &> auto-update.log'
 
 group: !include groups.yaml
 automation: !include automations.yaml
