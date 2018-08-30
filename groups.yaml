@@ -3,6 +3,7 @@ Camera:
   entities:
     - light.luce_bianca
     - light.luce_rgb
+    - binary_sensor.porta
     - script.1533592414402
     - automation.sveglia
     - script.1533171204737

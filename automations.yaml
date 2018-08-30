@@ -23,9 +23,19 @@
   alias: Auto update IP
   trigger:
   - platform: time
-    hours: '/3'
-    minutes: 00
-    seconds: 00
+    hours: /3
+    minutes: 0
+    seconds: 0
   condition: []
   action:
   - service: rest_command.update_ip
+- id: '1535592563679'
+  alias: '[TEST] Light & Door'
+  trigger:
+  - entity_id: binary_sensor.porta
+    platform: state
+  condition: []
+  action:
+  - data:
+      entity_id: light.luce_bianca
+    service: light.toggle

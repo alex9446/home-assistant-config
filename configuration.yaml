@@ -71,6 +71,13 @@ light:
         name: Luce RGB
         transition: 500
 
+binary_sensor:
+  - platform: mqtt
+    name: Porta
+    state_topic: stat/wemos/PORTA
+    device_class: door
+    qos: 0
+
 sensor:
   - platform: uptime
     unit_of_measurement: hours
