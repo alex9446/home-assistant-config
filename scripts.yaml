@@ -42,3 +42,8 @@
       - light.luce_bianca
       - light.luce_rgb
     service: light.toggle
+'1536284227270':
+  alias: Riavvia HA
+  sequence:
+  - data: {}
+    service: homeassistant.restart

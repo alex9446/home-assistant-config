@@ -3,14 +3,22 @@ Camera:
   entities:
     - light.luce_bianca
     - light.luce_rgb
+    - binary_sensor.interruttore
     - binary_sensor.porta
     - script.1533592414402
     - automation.sveglia
     - script.1533171204737
 
+Interruttore - Automazioni:
+  entities:
+    - automation.interruttore_on
+    - automation.interruttore_off__giorno
+    - automation.interruttore_off__notte
+
 Settaggi:
   control: hidden
   entities:
+    - input_boolean.sorveglia_accesso
     - input_number.minuti_luci_off
     - input_datetime.sveglia
     - automation.auto_update_ip
@@ -19,6 +27,7 @@ Settaggi:
 HA Info:
   control: hidden
   entities:
+    - script.1536284227270
     - sensor.ip_pubblico
     - sensor.current_version
     - sun.sun
@@ -40,6 +49,7 @@ Camera_menu:
   icon: mdi:bed-empty
   entities:
     - group.camera
+    - group.interruttore__automazioni
 
 Settaggi_menu:
   view: yes

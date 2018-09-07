@@ -21,11 +21,13 @@ recorder:
   purge_keep_days: 3
   include:
     domains:
+      - input_boolean
       - input_datetime
       - input_number
       - light
       - automation
       - script
+      - binary_sensor
     entities:
       - sensor.current_version
       - sensor.processor_use
@@ -76,6 +78,10 @@ binary_sensor:
     state_topic: stat/wemos/PORTA
     device_class: door
     qos: 0
+  - platform: mqtt
+    name: Interruttore
+    state_topic: stat/wemos/INTERRUTTORE
+    qos: 0
 
 sensor:
   - platform: uptime
@@ -109,6 +115,10 @@ notify:
   - name: Alex
     platform: telegram
     chat_id: !secret alex_chat_id
+
+input_boolean:
+  sorveglia_accesso:
+    name: Sorveglia accesso
 
 input_number:
   minuti_luci_off:

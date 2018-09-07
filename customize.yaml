@@ -1,3 +1,6 @@
+input_boolean.sorveglia_accesso:
+  icon: mdi:alarm-light
+
 input_number.minuti_luci_off:
   icon: mdi:timer
   
@@ -18,6 +21,9 @@ script.1533592414402:
 
 script.1533171204737:
   icon: mdi:lightbulb-outline
+
+script.1536284227270:
+  icon: mdi:restart
 
 sensor.auto_update_log:
   icon: mdi:file
