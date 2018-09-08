@@ -15,10 +15,17 @@ Interruttore - Automazioni:
     - automation.interruttore_off__giorno
     - automation.interruttore_off__notte
 
+Porta - Automazioni:
+  entities:
+    - automation.apertura_porta
+    - automation.chiusura_porta
+    - automation.notifica_porta
+
 Settaggi:
   control: hidden
   entities:
     - input_boolean.sorveglia_accesso
+    - input_boolean.ignora_porta
     - input_number.minuti_luci_off
     - input_datetime.sveglia
     - automation.auto_update_ip
@@ -49,13 +56,14 @@ Camera_menu:
   icon: mdi:bed-empty
   entities:
     - group.camera
-    - group.interruttore__automazioni
 
 Settaggi_menu:
   view: yes
   icon: mdi:tune
   entities:
     - group.settaggi
+    - group.interruttore__automazioni
+    - group.porta__automazioni
 
 Sensori_menu:
   view: yes

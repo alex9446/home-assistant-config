@@ -117,6 +117,8 @@ notify:
     chat_id: !secret alex_chat_id
 
 input_boolean:
+  ignora_porta:
+    name: Ignora porta
   sorveglia_accesso:
     name: Sorveglia accesso
 

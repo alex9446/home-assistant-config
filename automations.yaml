@@ -29,16 +29,6 @@
   condition: []
   action:
   - service: rest_command.update_ip
-- id: '1535592563679'
-  alias: '[TEST] Light & Door'
-  trigger:
-  - entity_id: binary_sensor.porta
-    platform: state
-  condition: []
-  action:
-  - data:
-      entity_id: light.luce_bianca
-    service: light.toggle
 - id: '1536286533224'
   alias: Interruttore ON
   trigger:
@@ -51,6 +41,9 @@
   - data:
       entity_id: light.luce_bianca
     service: light.turn_on
+  - data:
+      entity_id: script.1533171204737
+    service: script.turn_off
 - id: '1536286787654'
   alias: Interruttore OFF - Giorno
   trigger:
@@ -59,7 +52,7 @@
     platform: state
     to: 'off'
   condition:
-  - after: '07:00'
+  - after: 07:00
     before: '23:00'
     condition: time
   action:
@@ -77,9 +70,57 @@
     to: 'off'
   condition:
   - after: '23:00'
-    before: '07:00'
+    before: 07:00
     condition: time
   action:
   - data:
       entity_id: script.1533171204737
     service: script.turn_on
+- id: '1536369055858'
+  alias: Apertura porta
+  trigger:
+  - entity_id: binary_sensor.porta
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.ignora_porta
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.interruttore
+    state: 'on'
+  action:
+  - data:
+      entity_id: light.luce_bianca
+    service: light.turn_on
+- id: '1536369255927'
+  alias: Chiusura porta
+  trigger:
+  - entity_id: binary_sensor.porta
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: input_boolean.ignora_porta
+    state: 'off'
+  action:
+  - data:
+      entity_id:
+      - light.luce_bianca
+      - light.luce_rgb
+    service: light.turn_off
+- id: '1536370228647'
+  alias: Notifica porta
+  trigger:
+  - entity_id: binary_sensor.porta
+    platform: state
+  condition:
+  - condition: state
+    entity_id: input_boolean.sorveglia_accesso
+    state: 'on'
+  action:
+  - data:
+      message: Porta ➡️ {{states('binary_sensor.porta')}}
+    service: notify.alex

@@ -1,9 +1,12 @@
 input_boolean.sorveglia_accesso:
   icon: mdi:alarm-light
 
+input_boolean.ignora_porta:
+  icon: mdi:door
+
 input_number.minuti_luci_off:
   icon: mdi:timer
-  
+
 input_datetime.sveglia:
   icon: mdi:timer
 
