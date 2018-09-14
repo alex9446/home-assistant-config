@@ -21,6 +21,12 @@ Porta - Automazioni:
     - automation.chiusura_porta
     - automation.notifica_porta
 
+Telegram - Automazioni:
+  entities:
+    - automation.telegram__info
+    - automation.telegram__sorveglia
+    - automation.telegram__sveglia
+
 Settaggi:
   control: hidden
   entities:
@@ -35,7 +41,6 @@ HA Info:
   control: hidden
   entities:
     - script.1536284227270
-    - sensor.ip_pubblico
     - sensor.current_version
     - sun.sun
     - sensor.time
@@ -64,6 +69,7 @@ Settaggi_menu:
     - group.settaggi
     - group.interruttore__automazioni
     - group.porta__automazioni
+    - group.telegram__automazioni
 
 Sensori_menu:
   view: yes
