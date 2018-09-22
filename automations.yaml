@@ -133,6 +133,19 @@
   - data:
       entity_id: light.luce_rgb
     service: light.turn_off
+- id: '1536370228648'
+  alias: Notifica interruttore
+  trigger:
+  - entity_id: binary_sensor.interruttore
+    platform: state
+  condition:
+  - condition: state
+    entity_id: input_boolean.sorveglia_accesso
+    state: 'on'
+  action:
+  - data:
+      message: Interruttore ➡️ {{states('binary_sensor.interruttore')}}
+    service: notify.alex
 - id: '1536863756860'
   alias: Telegram - Info
   trigger:
