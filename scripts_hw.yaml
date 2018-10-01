@@ -1,0 +1,59 @@
+riavvia_ha:
+  alias: Riavvia HA
+  sequence:
+    - service: homeassistant.restart
+
+riavvia_as:
+  alias: Ricarica automazioni e script
+  sequence:
+    - service: automation.reload
+    - service: script.reload
+
+luce_sveglia:
+  alias: Luce sveglia
+  sequence:
+    - wait_template: "{{ states('input_datetime.sveglia') == states('sensor.time')+':00' }}"
+    - service: light.turn_on
+      data:
+        entity_id: light.luce_bianca
+
+inverti_luci:
+  alias: Inverti luci
+  sequence:
+    - service: light.toggle
+      data:
+        entity_id:
+          - light.luce_bianca
+          - light.luce_rgb
+
+luce_notte:
+  alias: Luce notte
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.luce_rgb
+        color_name: purple
+    - delay: 5
+    - service: light.turn_off
+      data:
+        entity_id: light.luce_rgb
+    - delay: '{{ states(''input_number.minuti_luci_off'') | int * 60 - 100 }}'
+    - service: light.turn_on
+      data:
+        entity_id: light.luce_rgb
+        color_name: red
+    - delay: 5
+    - service: light.turn_off
+      data:
+        entity_id: light.luce_rgb
+    - delay: 25
+    - service: light.turn_on
+      data:
+        entity_id: light.luce_rgb
+    - delay: 5
+    - service: light.turn_off
+      data:
+        entity_id: 
+          - light.luce_bianca
+          - light.luce_rgb
+        transition: 60

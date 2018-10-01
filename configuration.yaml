@@ -21,7 +21,6 @@ recorder:
   purge_keep_days: 3
   include:
     domains:
-      - input_boolean
       - input_datetime
       - input_number
       - light
@@ -111,12 +110,6 @@ notify:
     platform: telegram
     chat_id: !secret alex_chat_id
 
-input_boolean:
-  ignora_porta:
-    name: Ignora porta
-  sorveglia_accesso:
-    name: Sorveglia accesso
-
 input_number:
   minuti_luci_off:
     name: Minuti luci OFF
@@ -139,5 +132,5 @@ shell_command:
   auto_update: 'cd /config && cp auto-update.log auto-update_old.log && sh auto-update.sh &> auto-update.log'
 
 group: !include groups.yaml
-automation: !include automations.yaml
-script: !include scripts.yaml
+automation: !include automations_hw.yaml
+script: !include scripts_hw.yaml

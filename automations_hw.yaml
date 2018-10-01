@@ -1,0 +1,148 @@
+- alias: Auto update - GitHub
+  trigger:
+    - platform: time
+      at: '06:30:00'
+  action:
+    - service: shell_command.auto_update
+
+- alias: Auto update IP
+  trigger:
+    - platform: time
+      hours: '/3'
+      minutes: 0
+      seconds: 0
+  action:
+    - service: rest_command.update_ip
+
+- alias: Interruttore ON
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.interruttore
+      from: 'off'
+      to: 'on'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.luce_bianca
+    - service: script.turn_off
+      data:
+        entity_id: script.luce_notte
+
+- alias: Interruttore OFF - Giorno
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.interruttore
+      from: 'on'
+      to: 'off'
+  condition:
+    - condition: time
+      after: '07:00'
+      before: '23:00'
+  action:
+    - service: light.turn_off
+      data:
+        entity_id:
+          - light.luce_bianca
+          - light.luce_rgb
+
+- alias: Interruttore OFF - Notte
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.interruttore
+      from: 'on'
+      to: 'off'
+  condition:
+    - condition: time
+      after: '23:00'
+      before: '07:00'
+  action:
+    - service: script.turn_on
+      data:
+        entity_id: script.luce_notte
+
+- alias: Apertura porta
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.porta
+      from: 'off'
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: binary_sensor.interruttore
+      state: 'on'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.luce_bianca
+
+- alias: Chiusura porta
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.porta
+      from: 'on'
+      to: 'off'
+  condition:
+    - condition: state
+      entity_id: binary_sensor.interruttore
+      state: 'on'
+  action:
+    - service: light.turn_off
+      data:
+        entity_id:
+          - light.luce_bianca
+          - light.luce_rgb
+
+- alias: Sorveglia porta e interruttore
+  trigger:
+    - platform: state
+      entity_id: 
+        - binary_sensor.porta
+        - binary_sensor.interruttore
+  action:
+    - service: notify.alex
+      data_template:
+        message: >- 
+          Porta ➡️ {{ states('binary_sensor.porta') }}
+          
+          Interruttore ➡️ {{ states('binary_sensor.interruttore') }}
+
+- alias: Telegram - Info
+  trigger:
+    - platform: event
+      event_type: telegram_text
+      event_data:
+        text: Info
+  action:
+    - service: telegram_bot.send_message
+      data_template:
+        target: "{{ trigger.event.data.chat_id }}"
+        keyboard:
+          - 'Info'
+          - 'Sorveglia, Sveglia'
+        message: >-
+          Sorveglia *{{ states('automation.sorveglia_porta_e_interruttore') }}*
+          
+          Sveglia *{{ states('script.luce_sveglia') }}*
+
+
+- alias: Telegram - Sorveglia
+  trigger:
+    - platform: event
+      event_type: telegram_text
+      event_data:
+        text: Sorveglia
+  action:
+    - service: automation.toggle
+      data:
+        entity_id: automation.sorveglia_porta_e_interruttore
+
+- alias: Telegram - Sveglia
+  trigger:
+    - platform: event
+      event_type: telegram_text
+      event_data:
+        text: Sveglia
+  action:
+    - service: script.toggle
+      data:
+        entity_id: script.luce_sveglia

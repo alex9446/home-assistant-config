@@ -8,7 +8,7 @@ if [ -z "$GIT_CHECK" ]; then
   echo "Git non presente. Installo..."
   apk add git
 fi
-git add auto-update.sh LICENSE automations.yaml configuration.yaml customize.yaml groups.yaml scripts.yaml
+git add auto-update.sh LICENSE automations.yaml automations_hw.yaml configuration.yaml scripts.yaml scripts_hw.yaml
 echo "Controllo file modificati"
 GIT_STATUS=$(git status --untracked-files=no --porcelain)
 if [ -z "$GIT_STATUS" ]; then
