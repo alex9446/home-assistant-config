@@ -1,0 +1,55 @@
+title: Home assistant
+
+views:
+  - title: Main
+    id: main
+    cards:
+      - type: entities
+        title: Raspberry
+        entities:
+          - sensor.processor_use
+          - sensor.processor_temp
+          - sensor.memory_use_percent
+          - sensor.disk_use_percent_
+          - sensor.uptime
+      - type: glance
+        title: Camera
+        column_width: 'calc(100% / 3)'
+        show_state: false
+        entities:
+          - entity: light.luce_bianca
+            tap_action: toggle
+          - light.luce_rgb
+          - entity: script.luce_sveglia
+            tap_action: toggle
+            icon: mdi:weather-sunny
+          - entity: script.luce_notte
+            tap_action: toggle
+            icon: mdi:weather-night
+          - entity: script.inverti_luci
+            tap_action: toggle
+            icon: mdi:yin-yang
+          - binary_sensor.porta
+          - binary_sensor.interruttore
+      - type: glance
+        title: Settaggi
+        column_width: 'calc(100% / 2)'
+        show_state: false
+        entities:
+          - entity: input_number.minuti_luci_off
+            icon: mdi:timer
+          - entity: input_datetime.sveglia
+            icon: mdi:bell-ring-outline
+          - entity: script.riavvia_ha
+            icon: mdi:restart
+          - entity: script.riavvia_as
+            icon: mdi:reload
+      - type: entities
+        title: HA Info
+        entities:
+          - sensor.current_version
+          - sun.sun
+          - sensor.time
+          - sensor.date
+          - entity: sensor.auto_update_log
+            icon: mdi:file
