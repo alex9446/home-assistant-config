@@ -42,8 +42,6 @@ views:
             icon: mdi:bell-ring-outline
           - entity: script.riavvia_ha
             icon: mdi:restart
-          - entity: script.riavvia_as
-            icon: mdi:reload
       - type: entities
         title: HA Info
         entities:

@@ -3,12 +3,6 @@ riavvia_ha:
   sequence:
     - service: homeassistant.restart
 
-riavvia_as:
-  alias: Ricarica automazioni e script
-  sequence:
-    - service: automation.reload
-    - service: script.reload
-
 luce_sveglia:
   alias: Luce sveglia
   sequence:

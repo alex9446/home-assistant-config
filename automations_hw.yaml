@@ -106,6 +106,24 @@
           
           Interruttore ➡️ {{ states('binary_sensor.interruttore') }}
 
+- alias: Avviso avvio HA
+  trigger:
+    - platform: homeassistant
+      event: start
+  action:
+    - service: notify.alex
+      data:
+        message: 'Avvio HA completato'
+
+- alias: Avviso arresto HA
+  trigger:
+    - platform: homeassistant
+      event: shutdown
+  action:
+    - service: notify.alex
+      data:
+        message: 'Arresto HA completato'
+
 - alias: Telegram - Info
   trigger:
     - platform: event
@@ -118,12 +136,13 @@
         target: "{{ trigger.event.data.chat_id }}"
         keyboard:
           - 'Info'
-          - 'Sorveglia, Sveglia'
+          - 'Sorveglia, Sveglia,Riavvia HA'
         message: >-
+          CPU *{{ states('sensor.processor_use') }}*
+          
           Sorveglia *{{ states('automation.sorveglia_porta_e_interruttore') }}*
           
           Sveglia *{{ states('script.luce_sveglia') }}*
-
 
 - alias: Telegram - Sorveglia
   trigger:
@@ -146,3 +165,12 @@
     - service: script.toggle
       data:
         entity_id: script.luce_sveglia
+
+- alias: Telegram - Riavvia HA
+  trigger:
+    - platform: event
+      event_type: telegram_text
+      event_data:
+        text: 'Riavvia HA'
+  action:
+    - service: homeassistant.restart

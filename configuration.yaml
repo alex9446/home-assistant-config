@@ -24,7 +24,6 @@ recorder:
       - input_datetime
       - input_number
       - light
-      - automation
       - script
       - binary_sensor
     entities:
