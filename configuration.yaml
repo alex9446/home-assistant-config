@@ -1,6 +1,3 @@
-logger:
-  default: debug
-
 homeassistant:
   name: Home
   latitude: !secret lat
