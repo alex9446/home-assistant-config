@@ -4,7 +4,8 @@ views:
   - title: Main
     id: main
     cards:
-      - type: entities
+      - id: 0b049014d2c94a9585474e22b1fd79c2  # Automatically created id
+        type: entities
         title: Raspberry
         entities:
           - sensor.processor_use
@@ -12,9 +13,10 @@ views:
           - sensor.memory_use_percent
           - sensor.disk_use_percent_
           - sensor.uptime
-      - type: glance
+      - id: 57964ffa328d4eb3951aeb9d3c783e85  # Automatically created id
+        type: glance
         title: Camera
-        column_width: 'calc(100% / 3)'
+        column_width: calc(100% / 3)
         show_state: false
         entities:
           - entity: light.luce_bianca
@@ -31,9 +33,10 @@ views:
             icon: mdi:yin-yang
           - binary_sensor.porta
           - binary_sensor.interruttore
-      - type: glance
+      - id: ad834714813d42548a87e1eebeb5e31d  # Automatically created id
+        type: glance
         title: Settaggi
-        column_width: 'calc(100% / 2)'
+        column_width: calc(100% / 2)
         show_state: false
         entities:
           - entity: input_number.minuti_luci_off
@@ -42,7 +45,8 @@ views:
             icon: mdi:bell-ring-outline
           - entity: script.riavvia_ha
             icon: mdi:restart
-      - type: entities
+      - id: ff647f6dc20f4e038a89d9b24caa91da  # Automatically created id
+        type: entities
         title: HA Info
         entities:
           - sensor.current_version
