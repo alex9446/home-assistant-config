@@ -70,12 +70,12 @@ light:
     name: Luci natale sala
     state_topic: stat/natale-sala/POWER
     command_topic: cmnd/natale-sala/POWER
-    qos: 0
+    qos: 1
   - platform: mqtt
     name: Luci natale studio
     state_topic: stat/natale-studio/POWER
     command_topic: cmnd/natale-studio/POWER
-    qos: 0
+    qos: 1
   - platform: yeelight
     devices:
       10.192.168.65:
