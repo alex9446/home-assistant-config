@@ -59,6 +59,9 @@ telegram_bot:
     allowed_chat_ids:
       - !secret alex_chat_id
 
+ifttt:
+  key: !secret ifttt_key
+
 light:
   - platform: mqtt
     name: Luce bianca
