@@ -84,6 +84,18 @@ light:
       10.192.168.65:
         name: Luce RGB
         transition: 500
+  - platform: template
+    lights:
+      luci_albero:
+        friendly_name: Luci albero
+        turn_on:
+          service: ifttt.trigger
+          data:
+            event: accendi_albero
+        turn_off:
+          service: ifttt.trigger
+          data:
+            event: spegni_albero
 
 binary_sensor:
   - platform: mqtt

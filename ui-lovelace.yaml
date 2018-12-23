@@ -4,39 +4,50 @@ views:
   - title: Main
     id: main
     cards:
-      - id: 0b049014d2c94a9585474e22b1fd79c2  # Automatically created id
-        type: entities
+      - type: entities
         title: Raspberry
+        show_header_toggle: false
         entities:
           - sensor.processor_use
           - sensor.processor_temp
           - sensor.memory_use_percent
           - sensor.disk_use_percent_
           - sensor.uptime
-      - id: 57964ffa328d4eb3951aeb9d3c783e85  # Automatically created id
-        type: glance
+      - type: glance
         title: Camera
-        column_width: calc(100% / 3)
+        columns: 3
         show_state: false
         entities:
           - entity: light.luce_bianca
-            tap_action: toggle
+            tap_action:
+              action: toggle
           - light.luce_rgb
           - entity: script.luce_sveglia
-            tap_action: toggle
+            tap_action:
+              action: toggle
             icon: mdi:weather-sunny
           - entity: script.luce_notte
-            tap_action: toggle
+            tap_action:
+              action: toggle
             icon: mdi:weather-night
           - entity: script.inverti_luci
-            tap_action: toggle
+            tap_action:
+              action: toggle
             icon: mdi:yin-yang
           - binary_sensor.porta
           - binary_sensor.interruttore
-      - id: ad834714813d42548a87e1eebeb5e31d  # Automatically created id
-        type: glance
+          - entity: light.luci_natale_sala
+            tap_action:
+              action: toggle
+          - entity: light.luci_natale_studio
+            tap_action:
+              action: toggle
+          - entity: light.luci_albero
+            tap_action:
+              action: toggle
+      - type: glance
         title: Settaggi
-        column_width: calc(100% / 2)
+        columns: 3
         show_state: false
         entities:
           - entity: input_number.minuti_luci_off
@@ -45,9 +56,9 @@ views:
             icon: mdi:bell-ring-outline
           - entity: script.riavvia_ha
             icon: mdi:restart
-      - id: ff647f6dc20f4e038a89d9b24caa91da  # Automatically created id
-        type: entities
+      - type: entities
         title: HA Info
+        show_header_toggle: false
         entities:
           - sensor.current_version
           - sun.sun
