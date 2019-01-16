@@ -11,7 +11,7 @@ views:
           - sensor.processor_use
           - sensor.processor_temp
           - sensor.memory_use_percent
-          - sensor.disk_use_percent_
+          - sensor.disk_use_percent
           - sensor.uptime
       - type: glance
         title: Camera
