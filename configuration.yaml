@@ -38,7 +38,7 @@ recorder:
       - sensor.current_version
       - sensor.processor_use
       - sensor.memory_use_percent
-      - sensor.disk_use_percent_
+      - sensor.disk_use_percent
       - sensor.processor_temp
 
 history:

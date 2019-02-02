@@ -7,7 +7,7 @@
 
 - alias: Auto update IP
   trigger:
-    - platform: time
+    - platform: time_pattern
       hours: '/3'
       minutes: 0
       seconds: 0
