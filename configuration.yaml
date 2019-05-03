@@ -68,6 +68,12 @@ telegram_bot:
 ifttt:
   key: !secret ifttt_key
 
+yeelight:
+  devices:
+    10.192.168.65:
+      name: Luce RGB
+      transition: 500
+
 light:
   - platform: mqtt
     name: Luce bianca
@@ -85,11 +91,6 @@ light:
     state_topic: stat/natale-studio/POWER
     command_topic: cmnd/natale-studio/POWER
     qos: 1
-  - platform: yeelight
-    devices:
-      10.192.168.65:
-        name: Luce RGB
-        transition: 500
   - platform: template
     lights:
       luci_albero:
@@ -106,12 +107,12 @@ light:
 binary_sensor:
   - platform: mqtt
     name: Porta
-    state_topic: stat/wemos/PORTA
+    state_topic: stat/interruttore-camera/POWER2
     device_class: door
     qos: 0
   - platform: mqtt
     name: Interruttore
-    state_topic: stat/wemos/INTERRUTTORE
+    state_topic: stat/interruttore-camera/POWER1
     qos: 0
 
 sensor:
