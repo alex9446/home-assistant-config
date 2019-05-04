@@ -36,15 +36,15 @@ views:
             icon: mdi:yin-yang
           - binary_sensor.porta
           - binary_sensor.interruttore
-          - entity: light.luci_natale_sala
-            tap_action:
-              action: toggle
-          - entity: light.luci_natale_studio
-            tap_action:
-              action: toggle
-          - entity: light.luci_albero
-            tap_action:
-              action: toggle
+        #   - entity: light.luci_natale_sala
+        #     tap_action:
+        #       action: toggle
+        #   - entity: light.luci_natale_studio
+        #     tap_action:
+        #       action: toggle
+        #   - entity: light.luci_albero
+        #     tap_action:
+        #       action: toggle
       - type: glance
         title: Settaggi
         columns: 3
