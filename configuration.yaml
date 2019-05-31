@@ -1,3 +1,5 @@
+system_health:
+
 logger:
   default: debug
   logs:
