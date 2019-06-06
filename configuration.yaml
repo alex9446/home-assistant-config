@@ -71,6 +71,17 @@ yeelight:
       name: Luce RGB
       transition: 500
 
+android_ip_webcam:
+  - host: 10.192.168.66
+    port: 8080
+    name: IP Camera
+    username: !secret ipc_user
+    password: !secret ipc_pass
+    sensors:
+      - battery_level
+      - battery_temp
+      - battery_voltage
+
 light:
   - platform: mqtt
     name: Luce bianca
