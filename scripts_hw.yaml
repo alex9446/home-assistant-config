@@ -3,6 +3,39 @@ riavvia_ha:
   sequence:
     - service: homeassistant.restart
 
+snapshot_seq:
+  alias: Sequenza snapshot
+  sequence:
+    - service: camera.snapshot
+      data:
+        entity_id: camera.ip_camera
+        filename: '/tmp/snap_0.jpg'
+    - delay: 5
+    - service: camera.snapshot
+      data:
+        entity_id: camera.ip_camera
+        filename: '/tmp/snap_5.jpg'
+    - delay: 10
+    - service: camera.snapshot
+      data:
+        entity_id: camera.ip_camera
+        filename: '/tmp/snap_15.jpg'
+    - delay: 15
+    - service: camera.snapshot
+      data:
+        entity_id: camera.ip_camera
+        filename: '/tmp/snap_30.jpg'
+    - delay: 5
+    - service: notify.alex
+      data:
+        message: 'Sequenza snapshot'
+        data:
+          photo:
+            - file: '/tmp/snap_0.jpg'
+            - file: '/tmp/snap_5.jpg'
+            - file: '/tmp/snap_15.jpg'
+            - file: '/tmp/snap_30.jpg'
+
 luce_sveglia:
   alias: Luce sveglia
   sequence:

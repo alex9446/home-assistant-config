@@ -13,6 +13,8 @@ homeassistant:
   unit_system: metric
   time_zone: Europe/Rome
   customize: !include customize.yaml
+  whitelist_external_dirs:
+    - /tmp
 
 frontend:
 
@@ -34,6 +36,7 @@ recorder:
       - input_datetime
       - input_number
       - light
+      - switch
       - script
       - binary_sensor
     entities:
@@ -42,6 +45,9 @@ recorder:
       - sensor.memory_use_percent
       - sensor.disk_use_percent
       - sensor.processor_temp
+      - sensor.ip_camera_battery_level
+      - sensor.ip_camera_battery_temperature
+      - sensor.ip_camera_battery_voltage
 
 history:
 
@@ -110,6 +116,13 @@ light:
 #           service: ifttt.trigger
 #           data:
 #             event: spegni_albero
+
+switch:
+  - platform: mqtt
+    name: Carica telefono
+    state_topic: stat/tel-carica/POWER
+    command_topic: cmnd/tel-carica/POWER
+    qos: 1
 
 binary_sensor:
   - platform: mqtt

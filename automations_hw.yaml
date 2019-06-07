@@ -14,6 +14,18 @@
   action:
     - service: rest_command.update_ip
 
+- alias: CPU Alarm
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.processor_use
+      above: 90
+      for:
+        hours: 1
+  action:
+    - service: notify.alex
+      data:
+        message: '⚠ CPU Alarm ⚠'
+
 - alias: Interruttore ON
   trigger:
     - platform: state
@@ -92,19 +104,21 @@
           - light.luce_bianca
           - light.luce_rgb
 
-- alias: Sorveglia porta e interruttore
+- alias: Sorveglia porta
   trigger:
     - platform: state
       entity_id: 
         - binary_sensor.porta
-        - binary_sensor.interruttore
   action:
     - service: notify.alex
       data_template:
         message: >- 
-          Porta ➡️ {{ states('binary_sensor.porta') }}
+          Porta ➡ {{ states('binary_sensor.porta') }}
           
-          Interruttore ➡️ {{ states('binary_sensor.interruttore') }}
+          Interruttore ➡ {{ states('binary_sensor.interruttore') }}
+    - service: script.turn_on
+      data:
+        entity_id: script.snapshot_seq
 
 - alias: Avviso avvio HA
   trigger:
@@ -135,14 +149,35 @@
       data_template:
         target: "{{ trigger.event.data.chat_id }}"
         keyboard:
-          - 'Info'
-          - 'Sorveglia, Sveglia,Riavvia HA'
+          - 'Info, Snapshot'
+          - 'Sorveglia, Sveglia, Riavvia HA'
         message: >-
-          CPU *{{ states('sensor.processor_use') }}*
+          CPU: *{{ states('sensor.processor_use') }}%*
           
-          Sorveglia *{{ states('automation.sorveglia_porta_e_interruttore') }}*
+          CPU Temp: *{{ states('sensor.processor_temp') }} °C*
           
-          Sveglia *{{ states('script.luce_sveglia') }}*
+          Uptime: *{{ states('sensor.uptime') }} ore*
+          
+          Sorveglia: *{{ states('automation.sorveglia_porta') }}*
+          
+          Porta: *{{ states('binary_sensor.porta') }}*
+          
+          Sveglia: *{{ states('script.luce_sveglia') }}*
+
+- alias: Telegram - Snapshot
+  trigger:
+    - platform: event
+      event_type: telegram_text
+      event_data:
+        text: Snapshot
+  action:
+    - service: camera.snapshot
+      data:
+        entity_id: camera.ip_camera
+        filename: '/tmp/snap_manual.jpg'
+    - service: telegram_bot.send_photo
+      data:
+        file: '/tmp/snap_manual.jpg'
 
 - alias: Telegram - Sorveglia
   trigger:
@@ -153,7 +188,7 @@
   action:
     - service: automation.toggle
       data:
-        entity_id: automation.sorveglia_porta_e_interruttore
+        entity_id: automation.sorveglia_porta
 
 - alias: Telegram - Sveglia
   trigger:
@@ -174,6 +209,26 @@
         text: 'Riavvia HA'
   action:
     - service: homeassistant.restart
+
+- alias: Carica telefono - ON
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.ip_camera_battery_level
+      below: 20
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.carica_telefono
+
+- alias: Carica telefono - OFF
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.ip_camera_battery_level
+      above: 95
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.carica_telefono
 
 # - alias: Luci natale ON
 #   trigger:
