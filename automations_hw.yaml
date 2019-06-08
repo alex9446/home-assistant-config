@@ -150,7 +150,8 @@
         target: "{{ trigger.event.data.chat_id }}"
         keyboard:
           - 'Info, Snapshot'
-          - 'Sorveglia, Sveglia, Riavvia HA'
+          - 'Sorveglia, Sveglia'
+          - 'Luce, Riavvia HA'
         message: >-
           CPU: *{{ states('sensor.processor_use') }}%*
           
@@ -158,11 +159,17 @@
           
           Uptime: *{{ states('sensor.uptime') }} ore*
           
+          Carica telefono: *{{ states('switch.carica_telefono') }}*
+          
+          Livello batteria: *{{ states('sensor.ip_camera_battery_level') }}%*
+          
           Sorveglia: *{{ states('automation.sorveglia_porta') }}*
+          
+          Sveglia: *{{ states('script.luce_sveglia') }}*
           
           Porta: *{{ states('binary_sensor.porta') }}*
           
-          Sveglia: *{{ states('script.luce_sveglia') }}*
+          Luce: *{{ states('light.luce_bianca') }}*
 
 - alias: Telegram - Snapshot
   trigger:
@@ -200,6 +207,17 @@
     - service: script.toggle
       data:
         entity_id: script.luce_sveglia
+
+- alias: Telegram - Luce
+  trigger:
+    - platform: event
+      event_type: telegram_text
+      event_data:
+        text: Luce
+  action:
+    - service: light.toggle
+      data:
+        entity_id: light.luce_bianca
 
 - alias: Telegram - Riavvia HA
   trigger:

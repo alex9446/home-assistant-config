@@ -1,9 +1,7 @@
 system_health:
 
 logger:
-  default: debug
-  logs:
-    homeassistant.components.telegram_bot: critical
+  default: info
 
 homeassistant:
   name: Home
