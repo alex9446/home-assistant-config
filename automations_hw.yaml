@@ -153,23 +153,30 @@
           - 'Sorveglia, Sveglia'
           - 'Luce, Riavvia HA'
         message: >-
+          {% macro adv_states(entity) -%}
+            {%- if states(entity) == 'on' %}✅
+            {%- elif states(entity) == 'off' %}⛔
+            {%- else %}⚠
+            {%- endif %}
+          {%- endmacro %}
+          
           CPU: *{{ states('sensor.processor_use') }}%*
           
           CPU Temp: *{{ states('sensor.processor_temp') }} °C*
           
           Uptime: *{{ states('sensor.uptime') }} ore*
           
-          Carica telefono: *{{ states('switch.carica_telefono') }}*
+          Carica telefono: *{{ adv_states('switch.carica_telefono') }}*
           
           Livello batteria: *{{ states('sensor.ip_camera_battery_level') }}%*
           
-          Sorveglia: *{{ states('automation.sorveglia_porta') }}*
+          Sorveglia: *{{ adv_states('automation.sorveglia_porta') }}*
           
-          Sveglia: *{{ states('script.luce_sveglia') }}*
+          Sveglia: *{{ adv_states('script.luce_sveglia') }}*
           
-          Porta: *{{ states('binary_sensor.porta') }}*
+          Porta: *{{ adv_states('binary_sensor.porta') }} ➡ {{ states.binary_sensor.porta.last_changed | as_timestamp() | timestamp_custom('%H:%M:%S', False) }}*
           
-          Luce: *{{ states('light.luce_bianca') }}*
+          Luce: *{{ adv_states('light.luce_bianca') }}*
 
 - alias: Telegram - Snapshot
   trigger:
