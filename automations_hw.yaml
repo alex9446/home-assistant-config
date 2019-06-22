@@ -174,7 +174,7 @@
           
           Sveglia: *{{ adv_states('script.luce_sveglia') }}*
           
-          Porta: *{{ adv_states('binary_sensor.porta') }} ➡ {{ states.binary_sensor.porta.last_changed | as_timestamp() | timestamp_custom('%H:%M:%S', False) }}*
+          Porta: *{{ adv_states('binary_sensor.porta') }} ➡ {{ states.binary_sensor.porta.last_changed | as_timestamp() | timestamp_custom('%H:%M:%S') }}*
           
           Luce: *{{ adv_states('light.luce_bianca') }}*
 
