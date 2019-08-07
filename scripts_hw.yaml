@@ -42,7 +42,15 @@ luce_sveglia:
     - wait_template: "{{ states('input_datetime.sveglia') == states('sensor.time')+':00' }}"
     - service: light.turn_on
       data:
-        entity_id: light.luce_bianca
+        entity_id: light.luce_rgb
+        color_temp: 1
+        brightness: 255
+        transition: 60
+    - delay:
+        hours: 1
+    - service: automation.turn_on
+      data:
+        entity_id: automation.sorveglia_porta
 
 inverti_luci:
   alias: Inverti luci
