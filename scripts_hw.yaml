@@ -45,7 +45,7 @@ luce_sveglia:
         entity_id: light.luce_rgb
         color_temp: 1
         brightness: 255
-        transition: 60
+        transition: 30
     - delay:
         hours: 1
     - service: automation.turn_on
