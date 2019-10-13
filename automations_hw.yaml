@@ -120,6 +120,17 @@
       data:
         entity_id: script.snapshot_seq
 
+- alias: Avviso aggiornamento HA
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.updater
+      from: 'off'
+      to: 'on'
+  action:
+    - service: notify.alex
+      data:
+        message: 'Aggiornamento HA disponibile'
+
 - alias: Avviso avvio HA
   trigger:
     - platform: homeassistant
