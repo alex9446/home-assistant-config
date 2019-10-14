@@ -128,8 +128,11 @@
       to: 'on'
   action:
     - service: notify.alex
-      data:
-        message: 'Aggiornamento HA disponibile'
+      data_template:
+        message: >-
+          La versione *{{ state_attr('binary_sensor.updater', 'newest_version') }}* è disponibile
+          
+          Versione corrente *{{ states('sensor.current_version') }}*
 
 - alias: Avviso avvio HA
   trigger:
@@ -170,6 +173,8 @@
             {%- else %}⚠
             {%- endif %}
           {%- endmacro %}
+          
+          Ver: *{{ states('sensor.current_version') }}*
           
           CPU: *{{ states('sensor.processor_use') }}%*
           
