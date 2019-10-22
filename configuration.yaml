@@ -71,12 +71,12 @@ ifttt:
 
 yeelight:
   devices:
-    10.192.168.65:
+    10.192.168.71:
       name: Luce RGB
       transition: 500
 
 android_ip_webcam:
-  - host: 10.192.168.66
+  - host: 10.192.168.65
     port: 8080
     name: IP Camera
     username: !secret ipc_user
