@@ -71,6 +71,7 @@ views:
         show_header_toggle: false
         entities:
           - sensor.current_version
+          - binary_sensor.updater
           - sun.sun
           - sensor.time
           - sensor.date
