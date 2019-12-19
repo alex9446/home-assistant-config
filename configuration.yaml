@@ -92,28 +92,29 @@ light:
     state_topic: stat/luce-bianca/POWER
     command_topic: cmnd/luce-bianca/POWER
     qos: 0
-#   - platform: mqtt
-#     name: Luci natale sala
-#     state_topic: stat/natale-sala/POWER
-#     command_topic: cmnd/natale-sala/POWER
-#     qos: 1
-#   - platform: mqtt
-#     name: Luci natale studio
-#     state_topic: stat/natale-studio/POWER
-#     command_topic: cmnd/natale-studio/POWER
-#     qos: 1
-#   - platform: template
-#     lights:
-#       luci_albero:
-#         friendly_name: Luci albero
-#         turn_on:
-#           service: ifttt.trigger
-#           data:
-#             event: accendi_albero
-#         turn_off:
-#           service: ifttt.trigger
-#           data:
-#             event: spegni_albero
+# Luci natale
+  - platform: mqtt
+    name: Luci natale sala
+    state_topic: stat/luci-natale-sala/POWER
+    command_topic: cmnd/luci-natale-sala/POWER
+    qos: 1
+  - platform: mqtt
+    name: Luci natale terrazzo
+    state_topic: stat/luci-natale-terrazzo/POWER
+    command_topic: cmnd/luci-natale-terrazzo/POWER
+    qos: 1
+  - platform: template
+    lights:
+      luci_albero:
+        friendly_name: Luci albero
+        turn_on:
+          service: ifttt.trigger
+          data:
+            event: accendi_albero
+        turn_off:
+          service: ifttt.trigger
+          data:
+            event: spegni_albero
 
 switch:
   - platform: mqtt
@@ -172,6 +173,15 @@ input_number:
 input_datetime:
   sveglia:
     name: Sveglia
+    has_date: false
+    has_time: true
+# Luci natale
+  luci_natale_ora_on:
+    name: Ora accensione
+    has_date: false
+    has_time: true
+  luci_natale_ora_off:
+    name: Ora spegnimento
     has_date: false
     has_time: true
 

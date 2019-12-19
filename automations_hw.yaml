@@ -271,26 +271,27 @@
       data:
         entity_id: switch.carica_telefono
 
-# - alias: Luci natale ON
-#   trigger:
-#     - platform: time
-#       at: '16:00:00'
-#   action:
-#     - service: light.turn_on
-#       data:
-#         entity_id:
-#           - light.luci_natale_sala
-#           - light.luci_natale_studio
-#           - light.luci_albero
+# Luci natale
+- alias: Luci natale ON
+  trigger:
+    - platform: template
+      value_template: "{{ states('input_datetime.luci_natale_ora_on') == states('sensor.time')+':00' }}"
+  action:
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.luci_natale_sala
+          - light.luci_natale_terrazzo
 
-# - alias: Luci natale OFF
-#   trigger:
-#     - platform: time
-#       at: '01:00:00'
-#   action:
-#     - service: light.turn_off
-#       data:
-#         entity_id:
-#           - light.luci_natale_sala
-#           - light.luci_natale_studio
-#           - light.luci_albero
+- alias: Luci natale OFF
+  trigger:
+    - platform: template
+      value_template: "{{ states('input_datetime.luci_natale_ora_off') == states('sensor.time')+':00' }}"
+  action:
+    - service: light.turn_off
+      data:
+        entity_id:
+          - light.luci_natale_sala
+          - light.luci_natale_terrazzo
+          - light.luci_albero
+# Fine luci natale
