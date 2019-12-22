@@ -293,5 +293,36 @@
         entity_id:
           - light.luci_natale_sala
           - light.luci_natale_terrazzo
-          - light.luci_albero
+
+- alias: Luci albero OFF
+  trigger:
+    - platform: template
+      value_template: "{{ states('input_datetime.luci_albero_ora_off') == states('sensor.time')+':00' }}"
+  action:
+    - service: light.turn_off
+      data:
+        entity_id:
+          - light.albero_di_natale
+
+- alias: Sync albero-stella ON
+  trigger:
+    - platform: state
+      entity_id: light.albero_di_natale
+      from: 'off'
+      to: 'on'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.stella_di_natale
+
+- alias: Sync albero-stella OFF
+  trigger:
+    - platform: state
+      entity_id: light.albero_di_natale
+      from: 'on'
+      to: 'off'
+  action:
+    - service: light.turn_off
+      data:
+        entity_id: light.stella_di_natale
 # Fine luci natale

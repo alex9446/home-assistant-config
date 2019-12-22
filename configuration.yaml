@@ -103,18 +103,23 @@ light:
     state_topic: stat/luci-natale-terrazzo/POWER
     command_topic: cmnd/luci-natale-terrazzo/POWER
     qos: 1
+  - platform: mqtt
+    name: Albero di natale
+    state_topic: stat/albero-di-natale/POWER
+    command_topic: cmnd/albero-di-natale/POWER
+    qos: 1
   - platform: template
     lights:
-      luci_albero:
-        friendly_name: Luci albero
+      stella_di_natale:
+        friendly_name: Stella di natale
         turn_on:
           service: ifttt.trigger
           data:
-            event: accendi_albero
+            event: accendi_stella_di_natale
         turn_off:
           service: ifttt.trigger
           data:
-            event: spegni_albero
+            event: spegni_stella_di_natale
 
 switch:
   - platform: mqtt
@@ -182,6 +187,10 @@ input_datetime:
     has_time: true
   luci_natale_ora_off:
     name: Ora spegnimento
+    has_date: false
+    has_time: true
+  luci_albero_ora_off:
+    name: Ora spegnimento albero
     has_date: false
     has_time: true
 
