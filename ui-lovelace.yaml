@@ -32,7 +32,7 @@ views:
             tap_action:
               action: toggle
           - light.luce_rgb
-          - entity: script.luce_sveglia
+          - entity: input_boolean.sveglia
             tap_action:
               action: toggle
             icon: mdi:weather-sunny
@@ -67,7 +67,7 @@ views:
         entities:
           - entity: input_number.minuti_luci_off
             icon: mdi:timer
-          - entity: input_datetime.sveglia
+          - entity: input_datetime.ora_sveglia
             icon: mdi:bell-ring-outline
           - entity: script.riavvia_ha
             icon: mdi:restart

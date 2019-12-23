@@ -14,6 +14,30 @@
   action:
     - service: rest_command.update_ip
 
+- alias: Luce sveglia
+  trigger:
+    - platform: template
+      value_template: "{{ states('input_datetime.ora_sveglia') == states('sensor.time')+':00' }}"
+  condition:
+    - condition: state
+      entity_id: input_boolean.sveglia
+      state: 'on'
+  action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.sveglia
+    - service: light.turn_on
+      data:
+        entity_id: light.luce_rgb
+        color_temp: 1
+        brightness: 255
+        transition: 30
+    - delay:
+        hours: 1
+    - service: automation.turn_on
+      data:
+        entity_id: automation.sorveglia_porta
+
 - alias: CPU Alarm
   trigger:
     - platform: numeric_state
@@ -188,7 +212,7 @@
           
           Sorveglia: *{{ adv_states('automation.sorveglia_porta') }}*
           
-          Sveglia: *{{ adv_states('script.luce_sveglia') }} ➡ {{ states('input_datetime.sveglia') }}*
+          Sveglia: *{{ adv_states('input_boolean.sveglia') }} ➡ {{ states('input_datetime.ora_sveglia') }}*
           
           Porta: *{{ adv_states('binary_sensor.porta') }} ➡ {{ states.binary_sensor.porta.last_changed | as_timestamp() | timestamp_custom('%H:%M:%S') }}*
           
@@ -227,9 +251,9 @@
       event_data:
         text: Sveglia
   action:
-    - service: script.toggle
+    - service: input_boolean.toggle
       data:
-        entity_id: script.luce_sveglia
+        entity_id: input_boolean.sveglia
 
 - alias: Telegram - Luce
   trigger:

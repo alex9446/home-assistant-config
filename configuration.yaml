@@ -33,6 +33,7 @@ recorder:
     domains:
       - input_datetime
       - input_number
+      - input_boolean
       - light
       - switch
       - script
@@ -176,8 +177,8 @@ input_number:
     step: 1
 
 input_datetime:
-  sveglia:
-    name: Sveglia
+  ora_sveglia:
+    name: Ora sveglia
     has_date: false
     has_time: true
 # Luci natale
@@ -193,6 +194,10 @@ input_datetime:
     name: Ora spegnimento albero
     has_date: false
     has_time: true
+
+input_boolean:
+  sveglia:
+    name: Sveglia
 
 rest_command:
   update_ip:
