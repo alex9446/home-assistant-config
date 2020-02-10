@@ -17,7 +17,8 @@ views:
         title: IPC Info
         show_header_toggle: false
         entities:
-          - switch.carica_telefono
+          - entity: switch.carica_telefono
+            state_color: true
           - sensor.ip_camera_battery_level
           - sensor.ip_camera_battery_temperature
           - sensor.ip_camera_battery_voltage
@@ -62,13 +63,15 @@ views:
 # Fine luci natale
       - type: glance
         title: Settaggi
-        columns: 3
+        columns: 2
         show_state: false
         entities:
           - entity: input_number.minuti_luci_off
             icon: mdi:timer
           - entity: input_datetime.ora_sveglia
             icon: mdi:bell-ring-outline
+          - entity: input_number.delay_sorveglia
+            icon: mdi:timer
           - entity: script.riavvia_ha
             icon: mdi:restart
       - type: entities

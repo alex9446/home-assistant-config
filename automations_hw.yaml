@@ -32,11 +32,9 @@
         color_temp: 1
         brightness: 255
         transition: 30
-    - delay:
-        hours: 1
-    - service: automation.turn_on
+    - service: script.turn_on
       data:
-        entity_id: automation.sorveglia_porta
+        entity_id: script.sorveglia_con_delay
 
 - alias: CPU Alarm
   trigger:

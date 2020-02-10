@@ -173,8 +173,12 @@ input_number:
   minuti_luci_off:
     name: Minuti luci OFF
     min: 2
-    max: 10
-    step: 1
+    max: 5
+  delay_sorveglia:
+    name: Delay sorveglia
+    min: 1
+    max: 180
+    mode: box
 
 input_datetime:
   ora_sveglia:

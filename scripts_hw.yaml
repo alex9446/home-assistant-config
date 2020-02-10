@@ -76,3 +76,11 @@ luce_notte:
           - light.luce_bianca
           - light.luce_rgb
         transition: 60
+
+sorveglia_con_delay:
+  alias: Sorveglia con delay
+  sequence:
+    - delay: '{{ states(''input_number.delay_sorveglia'') | int * 60 }}'
+    - service: automation.turn_on
+      data:
+        entity_id: automation.sorveglia_porta
