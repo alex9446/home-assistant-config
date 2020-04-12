@@ -208,7 +208,7 @@ rest_command:
     method: GET
 
 shell_command:
-  auto_update: 'cd /config && cp auto-update.log auto-update_old.log && sh auto-update.sh &> auto-update.log'
+  auto_update: 'cd /config && sh auto-update.sh &> auto-update.log'
 
 group: !include groups.yaml
 automation: !include automations.yaml
