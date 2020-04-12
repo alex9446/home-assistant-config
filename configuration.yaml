@@ -212,5 +212,5 @@ shell_command:
   auto_update: 'cd /config && cp auto-update.log auto-update_old.log && sh auto-update.sh &> auto-update.log'
 
 group: !include groups.yaml
-automation: !include automations_hw.yaml
-script: !include scripts_hw.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
