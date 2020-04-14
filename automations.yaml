@@ -188,6 +188,7 @@
           - 'Info, Snapshot'
           - 'Sorveglia, Sveglia'
           - 'Luce, Riavvia HA'
+          - 'Mosquitto ON, Mosquitto OFF'
         message: >-
           {% macro adv_states(entity) -%}
             {%- if states(entity) == 'on' %}✅
@@ -272,6 +273,28 @@
         text: 'Riavvia HA'
   action:
     - service: homeassistant.restart
+
+- alias: Telegram - Mosquitto ON
+  trigger:
+    - platform: event
+      event_type: telegram_text
+      event_data:
+        text: 'Mosquitto ON'
+  action:
+    - service: hassio.addon_start
+      data:
+        addon: core_mosquitto
+
+- alias: Telegram - Mosquitto OFF
+  trigger:
+    - platform: event
+      event_type: telegram_text
+      event_data:
+        text: 'Mosquitto OFF'
+  action:
+    - service: hassio.addon_stop
+      data:
+        addon: core_mosquitto
 
 - alias: Carica telefono - ON
   trigger:
