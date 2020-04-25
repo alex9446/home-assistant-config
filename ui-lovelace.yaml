@@ -22,6 +22,7 @@ views:
           - sensor.ip_camera_battery_level
           - sensor.ip_camera_battery_temperature
           - sensor.ip_camera_battery_voltage
+          - sensor.ip_camera_light_level
       - type: picture-entity
         entity: camera.ip_camera
       - type: glance

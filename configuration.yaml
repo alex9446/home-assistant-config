@@ -46,6 +46,7 @@ recorder:
       - sensor.ip_camera_battery_level
       - sensor.ip_camera_battery_temperature
       - sensor.ip_camera_battery_voltage
+      - sensor.ip_camera_light_level
 
 history:
 
@@ -85,6 +86,7 @@ android_ip_webcam:
       - battery_level
       - battery_temp
       - battery_voltage
+      - light
 
 light:
   - platform: mqtt
