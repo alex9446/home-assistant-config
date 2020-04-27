@@ -40,7 +40,7 @@
   trigger:
     - platform: numeric_state
       entity_id: sensor.processor_use
-      above: 90
+      above: 70
       for:
         minutes: 30
   action:
