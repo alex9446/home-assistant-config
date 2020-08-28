@@ -17,8 +17,7 @@ else
   echo "File modificati"
   git commit -m `date +%d/%m/%Y`
   echo "Nuovo commit"
-  git push origin master
-  echo "Upload eseguito"
 fi
+git push origin master
 rm pidFiles/"$$"
 echo "Rimosso file pid. Fine script"
