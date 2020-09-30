@@ -85,6 +85,7 @@ views:
         entities:
           - sensor.current_version
           - binary_sensor.updater
+          - binary_sensor.stato_rete
           - sun.sun
           - sensor.time
           - sensor.date

@@ -133,7 +133,7 @@
         - binary_sensor.porta
   action:
     - service: notify.alex
-      data_template:
+      data:
         message: >- 
           Porta ➡ {{ states('binary_sensor.porta') }}
           
@@ -149,11 +149,24 @@
       to: 'on'
   action:
     - service: notify.alex
-      data_template:
+      data:
         message: >-
           La versione *{{ state_attr('binary_sensor.updater', 'newest_version') }}* è disponibile
           
           Versione corrente *{{ states('sensor.current_version') }}*
+
+- alias: Avviso stato rete
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.stato_rete
+      from: 'off'
+      to: 'on'
+  action:
+    - service: notify.alex
+      data:
+        message: >-
+          Rete disconnessa dalle ore *{{ as_timestamp(trigger.from_state.last_changed) | timestamp_custom('%H:%M:%S') }}*
+          per un totale di *{{ ((as_timestamp(trigger.to_state.last_changed) - as_timestamp(trigger.from_state.last_changed)) / 60) | round }}* minuti
 
 - alias: Avviso avvio HA
   trigger:
@@ -181,7 +194,7 @@
         text: Info
   action:
     - service: telegram_bot.send_message
-      data_template:
+      data:
         target: "{{ trigger.event.data.chat_id }}"
         keyboard:
           - 'Info, Snapshot'
@@ -212,7 +225,7 @@
           
           Sveglia: *{{ adv_states('input_boolean.sveglia') }} ➡ {{ states('input_datetime.ora_sveglia') }}*
           
-          Porta: *{{ adv_states('binary_sensor.porta') }} ➡ {%- if states.binary_sensor.porta %}{{ states.binary_sensor.porta.last_changed | as_timestamp() | timestamp_custom('%H:%M:%S') }}{% endif -%}*
+          Porta: *{{ adv_states('binary_sensor.porta') }} ➡ {%- if states.binary_sensor.porta %}{{ as_timestamp(states.binary_sensor.porta.last_changed) | timestamp_custom('%H:%M:%S') }}{% endif -%}*
           
           Luce: *{{ adv_states('light.luce_bianca') }}*
 

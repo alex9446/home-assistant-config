@@ -140,6 +140,11 @@ binary_sensor:
     name: Interruttore
     state_topic: stat/interruttore-camera/POWER1
     qos: 0
+  - platform: ping
+    name: Stato rete
+    host: 1.1.1.1
+    count: 3
+    scan_interval: 30
 
 sensor:
   - platform: uptime
