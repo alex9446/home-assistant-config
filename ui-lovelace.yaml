@@ -13,18 +13,6 @@ views:
           - sensor.memory_use_percent
           - sensor.disk_use_percent
           - sensor.uptime
-      - type: entities
-        title: IPC Info
-        show_header_toggle: false
-        entities:
-          - entity: switch.carica_telefono
-            state_color: true
-          - sensor.ip_camera_battery_level
-          - sensor.ip_camera_battery_temperature
-          - sensor.ip_camera_battery_voltage
-          - sensor.ip_camera_light_level
-      - type: picture-entity
-        entity: camera.ip_camera
       - type: glance
         title: Camera
         columns: 4

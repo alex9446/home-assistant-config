@@ -138,9 +138,6 @@
           Porta ➡ {{ states('binary_sensor.porta') }}
           
           Interruttore ➡ {{ states('binary_sensor.interruttore') }}
-    - service: script.turn_on
-      data:
-        entity_id: script.snapshot_seq
 
 - alias: Avviso aggiornamento HA
   trigger:
@@ -202,6 +199,8 @@
           - 'Luce, Riavvia HA'
           - 'Mosquitto ON, Mosquitto OFF'
         message: >-
+          {% set uptime = now() - as_datetime(states('sensor.uptime')) %}
+          
           {% macro adv_states(entity) -%}
             {%- if states(entity) == 'on' %}✅
             {%- elif states(entity) == 'off' %}⛔
@@ -215,11 +214,7 @@
           
           CPU Temp: *{{ states('sensor.processor_temp') }} °C*
           
-          Uptime: *{{ states('sensor.uptime') }} ore*
-          
-          Carica telefono: *{{ adv_states('switch.carica_telefono') }}*
-          
-          Livello batteria: *{{ states('sensor.ip_camera_battery_level') }}%*
+          Uptime: *{{ uptime.days }} giorni e {{ uptime.seconds // 3600 }} ore*
           
           Sorveglia: *{{ adv_states('automation.sorveglia_porta') }}*
           
@@ -228,32 +223,6 @@
           Porta: *{{ adv_states('binary_sensor.porta') }} ➡ {%- if states.binary_sensor.porta %}{{ as_timestamp(states.binary_sensor.porta.last_changed) | timestamp_custom('%H:%M:%S') }}{% endif -%}*
           
           Luce: *{{ adv_states('light.luce_bianca') }}*
-
-- alias: Telegram - Snapshot
-  trigger:
-    - platform: event
-      event_type: telegram_text
-      event_data:
-        text: Snapshot
-  action:
-    - service: camera.snapshot
-      data:
-        entity_id: camera.ip_camera
-        filename: '/tmp/snap_manual.jpg'
-    - service: telegram_bot.send_photo
-      data:
-        file: '/tmp/snap_manual.jpg'
-
-- alias: Telegram - Sorveglia
-  trigger:
-    - platform: event
-      event_type: telegram_text
-      event_data:
-        text: Sorveglia
-  action:
-    - service: automation.toggle
-      data:
-        entity_id: automation.sorveglia_porta
 
 - alias: Telegram - Sveglia
   trigger:
@@ -307,26 +276,6 @@
     - service: hassio.addon_stop
       data:
         addon: core_mosquitto
-
-- alias: Carica telefono - ON
-  trigger:
-    - platform: numeric_state
-      entity_id: sensor.ip_camera_battery_level
-      below: 20
-  action:
-    - service: switch.turn_on
-      data:
-        entity_id: switch.carica_telefono
-
-- alias: Carica telefono - OFF
-  trigger:
-    - platform: numeric_state
-      entity_id: sensor.ip_camera_battery_level
-      above: 95
-  action:
-    - service: switch.turn_off
-      data:
-        entity_id: switch.carica_telefono
 
 # Luci natale
 - alias: Luci natale ON

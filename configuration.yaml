@@ -45,10 +45,6 @@ recorder:
       - sensor.memory_use_percent
       - sensor.disk_use_percent
       - sensor.processor_temp
-      - sensor.ip_camera_battery_level
-      - sensor.ip_camera_battery_temperature
-      - sensor.ip_camera_battery_voltage
-      - sensor.ip_camera_light_level
 
 history:
 
@@ -77,18 +73,6 @@ yeelight:
     10.192.168.71:
       name: Luce RGB
       transition: 500
-
-android_ip_webcam:
-  - host: 10.192.168.65
-    port: 8080
-    name: IP Camera
-    username: !secret ipc_user
-    password: !secret ipc_pass
-    sensors:
-      - battery_level
-      - battery_temp
-      - battery_voltage
-      - light
 
 light:
   - platform: mqtt
@@ -127,9 +111,9 @@ light:
 
 switch:
   - platform: mqtt
-    name: Carica telefono
-    state_topic: stat/tel-carica/POWER
-    command_topic: cmnd/tel-carica/POWER
+    name: LED cucina
+    state_topic: stat/led-cucina/POWER
+    command_topic: cmnd/led-cucina/POWER
     qos: 1
 
 binary_sensor:
