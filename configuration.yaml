@@ -80,6 +80,11 @@ light:
     state_topic: stat/luce-bianca/POWER
     command_topic: cmnd/luce-bianca/POWER
     qos: 0
+  - platform: mqtt
+    name: LED cucina
+    state_topic: stat/led-cucina/POWER
+    command_topic: cmnd/led-cucina/POWER
+    qos: 0
 # Luci natale
   - platform: mqtt
     name: Luci natale sala
@@ -108,13 +113,6 @@ light:
           service: ifttt.trigger
           data:
             event: spegni_stella_di_natale
-
-switch:
-  - platform: mqtt
-    name: LED cucina
-    state_topic: stat/led-cucina/POWER
-    command_topic: cmnd/led-cucina/POWER
-    qos: 1
 
 binary_sensor:
   - platform: mqtt

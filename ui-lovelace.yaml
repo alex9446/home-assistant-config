@@ -40,6 +40,8 @@ views:
             icon: mdi:cctv
           - binary_sensor.porta
           - binary_sensor.interruttore
+      - type: entity
+        entity: light.led_cucina
 # Luci natale
       - type: glance
         title: Luci natale
