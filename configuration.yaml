@@ -12,6 +12,7 @@ homeassistant:
   time_zone: Europe/Rome
   whitelist_external_dirs:
     - /tmp
+  external_url: !secret external_url
 
 frontend:
 
@@ -60,7 +61,7 @@ mqtt:
   password: !secret mqtt_password
 
 telegram_bot:
-  - platform: polling
+  - platform: webhooks
     api_key: !secret bot_key
     allowed_chat_ids:
       - !secret alex_chat_id
