@@ -277,6 +277,19 @@
       data:
         addon: core_mosquitto
 
+- alias: Led cucina AutoOFF
+  trigger:
+    - platform: state
+      entity_id: light.led_cucina
+      to: 'on'
+      for:
+        hours: 8
+  action:
+    - service: light.turn_off
+      data:
+        entity_id:
+          - light.led_cucina
+
 # Luci natale
 - alias: Luci natale ON
   trigger:
